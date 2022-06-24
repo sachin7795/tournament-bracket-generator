@@ -1,0 +1,42 @@
+
+.text-bold{
+    font-weight: bold !important;
+}
+.faded{
+    color: gray !important;
+}
+.team-row{
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .flag-country-div{
+        display: flex;
+        align-items: center;
+        width: 69%;
+        .flag-div{
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            mat-icon{
+                width: 50px;
+                height: 50px;
+                font-size: 50px;
+            }
+        }
+    }
+    .score-penalty-div{
+        width: 25%;
+        text-align: right;
+    }
+    .winner-div{
+        width: 10%;
+        margin-right: -16px;
+        margin-top: 5px;
+        .winner-icon{
+            font-size: 36px;
+            width: 36px;
+            height: 36px;
+        }
+    }
+}

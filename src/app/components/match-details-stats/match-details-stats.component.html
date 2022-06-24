@@ -1,0 +1,16 @@
+<div class="match-details-stats">
+    <div class="stats-header">
+        <div class="team-one-flag">
+            <mat-icon>{{matchDetails.teamOne.flag}}</mat-icon>
+        </div>
+        <div class="team-stats-div">TEAM STATS</div>
+        <div class="team-two-flag">
+            <mat-icon>{{matchDetails.teamTwo.flag}}</mat-icon>
+        </div>
+    </div>
+    <div class="stats-row" *ngFor="let key of stats">
+        <div class="team-one-stat">{{objectRead(matchDetails.teamOne.stats,key)}}</div>
+        <div class="team-stat-type">{{camelCaseToSpace(key)}}</div>
+        <div class="team-two-stat">{{objectRead(matchDetails.teamTwo.stats,key)}}</div>
+    </div>
+</div>

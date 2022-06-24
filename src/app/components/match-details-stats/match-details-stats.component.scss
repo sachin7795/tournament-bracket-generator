@@ -1,0 +1,39 @@
+.match-details-stats{
+    display: flex;
+    flex-direction: column;
+    background: #1b1919;
+    color: white;
+    font-size: 20px;
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    .stats-header,.stats-row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid gray;
+    }
+    .stats-header{
+        .team-one-flag,.team-two-flag{
+            width: 50px;
+            height: 50px;
+            mat-icon{
+                width: 50px;
+                height: 50px;
+                font-size: 50px;
+            }
+        }
+        .team-stats-div{
+            font-size: 32px;
+        }
+    }
+    .stats-row{
+        .team-one-stat{
+            padding-left: 10px;
+        }
+        .team-two-stat{
+            padding-right: 10px;
+        }
+    }
+}

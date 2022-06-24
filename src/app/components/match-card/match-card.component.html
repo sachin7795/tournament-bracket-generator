@@ -1,0 +1,9 @@
+<div class="match-card-container">
+    <div class="head-row">
+        <div class="date-div">{{cardData.date | customDate}}</div>
+        <div class="ft-p-div" *ngIf="cardData.status=='Full-time'">FT<span *ngIf="cardData.penalty">(P)</span></div>
+        <div class="winner-div"></div>
+    </div>
+    <match-card-team-row [team]="cardData.teamOne" *ngIf="cardData.teamOne"></match-card-team-row>
+    <match-card-team-row [team]="cardData.teamTwo" *ngIf="cardData.teamTwo"></match-card-team-row>
+</div>

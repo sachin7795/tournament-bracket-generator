@@ -1,0 +1,14 @@
+<div class="team-row" [ngClass]="{'text-bold': team.isWinner,'faded': !team.isWinner}">
+    <div class="flag-country-div">
+        <div class="flag-div">
+            <mat-icon>{{team.flag}}</mat-icon>
+        </div>
+        <div class="team-name-div">{{team.name | longTextElip}}</div>
+    </div>
+    <div class="score-penalty-div">
+        {{team.score}}<span *ngIf="team.penaltyScore">({{team.penaltyScore}})</span>
+    </div>
+    <div class="winner-div">
+        <mat-icon *ngIf="team.isWinner" class="winner-icon">arrow_left</mat-icon>
+    </div>
+</div>

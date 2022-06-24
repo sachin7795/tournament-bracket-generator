@@ -1,0 +1,41 @@
+<div class="match-details-header">
+    <div class="header-top">
+        <div class="tournament-name-and-date-div">
+            <div class="tournament-name-div">
+                {{matchDetails.tournamentName}}
+            </div>
+            <div class="date-div">
+                {{matchDetails.date | customDate:true }}
+            </div>
+        </div>
+        <div class="match-status-div">
+            {{matchDetails.status}}
+        </div>
+    </div>
+    <div class="team-scores-div">
+        <div class="flag-and-name-div">
+            <div class="flag-div">
+                <mat-icon>{{matchDetails.teamOne.flag}}</mat-icon>
+            </div>
+            <div class="name-div">
+                {{matchDetails.teamOne.name}}
+            </div>
+        </div>
+        <div class="scores-div">
+            <div class="team-one-score">{{matchDetails.teamOne.score}}</div>
+            <div class="hife-div">-</div>
+            <div class="team-two-score">{{matchDetails.teamTwo.score}}</div>
+        </div>
+        <div class="flag-and-name-div">
+            <div class="flag-div">
+                <mat-icon>{{matchDetails.teamTwo.flag}}</mat-icon>
+            </div>
+            <div class="name-div">
+                {{matchDetails.teamTwo.name}}
+            </div>
+        </div>
+    </div>
+    <div class="stage-div">
+        {{matchDetails.stage}}
+    </div>
+</div>
