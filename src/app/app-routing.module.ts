@@ -13,9 +13,14 @@ const routes: Routes = [
     .then(m => m.MatchDetailsModule)  
   },
   {  
+    path: 'countries',  
+    loadChildren: () => import('./pages/countries/countries.module')  
+    .then(m => m.CountriesModule)  
+  },
+  {  
     path: '',  
-    loadChildren: () => import('./pages/matches-dashboard/matches-dashboard.module')  
-    .then(m => m.MatchesDashboardModule)  
+    loadChildren: () => import('./pages/countries/countries.module')  
+    .then(m => m.CountriesModule)   
   }
 ];
 

@@ -1,0 +1,20 @@
+<div class="add-edit-country-container">
+    <div class="form-header">
+        {{isAdd?'Add Country':'Edit Country'}}
+    </div>
+    <form (ngSubmit)="addCountry()">
+        <mat-form-field>
+            <mat-label>Country Name</mat-label>
+            <input matInput type="text" [(ngModel)]="country.name" name="countryName" type="countryName" placeholder="Enter Country Name...">
+            <mat-error *ngIf="!country.name || (country.name && country.name.trim()=='')">Country Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Genral Rank</mat-label>
+            <input matInput type="number" [(ngModel)]="country.rank" name="generalRank" type="generalRank" placeholder="Enter General Rank...">
+            <mat-error *ngIf="!country.rank || (country.rank && (country.rank+'').trim()=='')">General Rank is required</mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button color="primary" type="submit">{{isAdd?'Add':'update'}}</button>
+        </div>
+    </form>
+</div>

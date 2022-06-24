@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatchCard } from 'src/app/models/match-card.model';
+import { Tournament } from 'src/app/models/tournament.model';
 
 @Component({
   selector: 'matches-dashboard',

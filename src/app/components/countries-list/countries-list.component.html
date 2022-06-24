@@ -1,0 +1,15 @@
+<div class="contries-list-container">
+    <div class="header">
+        <div class="name">Name</div>
+        <div class="rank">Rank</div>
+        <div class="actions">Actions</div>
+    </div>
+    <div class="country" *ngFor="let country of countries;let i=index;">
+        <div class="name">{{country.name}}</div>
+        <div class="rank">{{country.rank}}</div>
+        <div class="actions">
+            <mat-icon (click)="editCountry(country)">edit</mat-icon>
+            <mat-icon class="delete" (click)="deleteCountry(country)">delete</mat-icon>
+        </div>
+    </div>
+</div>

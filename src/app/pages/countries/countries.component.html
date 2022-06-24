@@ -1,0 +1,15 @@
+<div class="countries-container">
+    <div class="header">
+       <div class="list-header">Countries</div>
+       <div class="add-country">
+           <mat-icon (click)="showAdd()" *ngIf="!addEditFormVisible && isAdd">add_circle</mat-icon>
+           <mat-icon (click)="hideAdd()" *ngIf="addEditFormVisible && isAdd">cancel</mat-icon>
+       </div>
+    </div>
+    <add-edit-country *ngIf="addEditFormVisible"
+                      [isAdd]="isAdd"
+                      [country]="country"
+                      (updatedCountry)="addOrUpdateCountry($event)"></add-edit-country>
+    <countries-list [countries]="countries"
+                    (edit)="editCountry($event)"></countries-list>
+</div>
