@@ -1,1 +1,84 @@
-<match-card [data]="testData" (click)="openMatchDetails()"></match-card>
+<div class="matches-dahboard-container">
+    <div class="round-of-16-div">
+        <div class="header">Round of 16</div>
+        <ng-container  *ngFor="let ro16 of tournamentData.roundOf16;let i=index;">
+            <div class="ro-16-div"  *ngIf="i%2==0">
+                <div class="couple-cards-width">
+                    <match-card [data]="ro16" (click)="openMatchDetails()"></match-card>
+                    <match-card [data]="tournamentData.roundOf16[i+1]" (click)="openMatchDetails()"></match-card>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="quarter-finals-div">
+        <div class="header"></div>
+        <ng-container  *ngFor="let qf of tournamentData.quarterFinals;let q=index;">
+            <div class="qf-div"  *ngIf="q%2==0">
+                <div class="couple-cards-width">
+                    <div class="connecting-line">
+                        <div class="rect-part"></div>
+                        <div class="line-part"></div>
+                    </div>
+                    <div class="connecting-line">
+                        <div class="rect-part"></div>
+                        <div class="line-part"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="quarter-finals-div">
+        <div class="header">Quarter-final</div>
+        <ng-container  *ngFor="let qf of tournamentData.quarterFinals;let q=index;">
+            <div class="qf-div"  *ngIf="q%2==0">
+                <div class="couple-cards-width">
+                    <match-card [data]="qf" (click)="openMatchDetails()"></match-card>
+                    <match-card [data]="tournamentData.quarterFinals[q+1]" (click)="openMatchDetails()"></match-card>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="semi-finals-div">
+        <div class="header"></div>
+        <ng-container *ngFor="let sf of tournamentData.semiFinals;let s=index;">
+            <div class="sf-div"  *ngIf="s%2==0">
+                <div class="couple-cards-width">
+                    <div class="connecting-line">
+                        <div class="rect-part"></div>
+                        <div class="line-part"></div>
+                    </div>
+                    <div class="connecting-line">
+                        <div class="rect-part"></div>
+                        <div class="line-part"></div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="semi-finals-div">
+        <div class="header">Semi-final</div>
+        <ng-container *ngFor="let sf of tournamentData.semiFinals;let s=index;">
+            <div class="sf-div"  *ngIf="s%2==0">
+                <div class="couple-cards-width">
+                    <match-card [data]="sf" (click)="openMatchDetails()"></match-card>
+                    <match-card [data]="tournamentData.semiFinals[s+1]" (click)="openMatchDetails()"></match-card>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="final-div">
+        <div class="header"></div>
+        <div class="couple-cards-width">
+            <div class="connecting-line">
+                <div class="rect-part"></div>
+                <div class="line-part"></div>
+            </div>
+        </div>
+    </div>
+    <div class="final-div">
+        <div class="header">Final</div>
+        <div class="couple-cards-width">
+            <match-card [data]="tournamentData.final" (click)="openMatchDetails()"></match-card>
+        </div>
+    </div>
+</div>

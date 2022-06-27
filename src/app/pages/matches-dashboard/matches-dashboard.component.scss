@@ -1,0 +1,101 @@
+.matches-dahboard-container{
+    display: flex;
+    padding: 40px;
+    background: #2f2727;
+    .round-of-16-div,.quarter-finals-div,.semi-finals-div,.final-div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .header{
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: white;
+        }
+    }
+    .round-of-16-div{
+        .couple-cards-width{
+            height: 350px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+    }
+    .quarter-finals-div{
+        .couple-cards-width{
+            height: 740px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            .connecting-line{
+                display: flex;
+                align-items: center;
+                .rect-part{
+                    width: 25px;
+                    border-right: 2px solid gray;
+                    height: 170px;
+                    border-top: 2px solid gray;
+                    border-bottom: 2px solid gray;
+                    border-radius: 0px 10px 10px 0px;
+                }
+                .line-part{
+                    width: 25px;
+                    border: 1px solid gray;
+                }
+            }
+        }
+    }
+    .semi-finals-div{
+        .couple-cards-width{
+            height: 1480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            .connecting-line{
+                display: flex;
+                align-items: center;
+                .rect-part{
+                    width: 25px;
+                    border-right: 2px solid gray;
+                    height: 370px;
+                    border-top: 2px solid gray;
+                    border-bottom: 2px solid gray;
+                    border-radius: 0px 10px 10px 0px;
+                }
+                .line-part{
+                    width: 25px;
+                    border: 1px solid gray;
+                }
+            }
+        }
+    }
+    .final-div{
+        .couple-cards-width{
+            height: 1480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            .connecting-line{
+                display: flex;
+                align-items: center;
+                .rect-part{
+                    width: 25px;
+                    border-right: 2px solid gray;
+                    height: 740px;
+                    border-top: 2px solid gray;
+                    border-bottom: 2px solid gray;
+                    border-radius: 0px 10px 10px 0px;
+                }
+                .line-part{
+                    width: 25px;
+                    border: 1px solid gray;
+                }
+            }
+        }
+    }
+}

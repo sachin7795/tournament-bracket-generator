@@ -12,6 +12,24 @@ export class MatchesDashboardComponent {
 
     constructor(private _route: Router) {}
 
+    ngOnInit() {
+      for(let i=1;i<9;i++) {
+        this.testData.matchNumber = i;
+        this.tournamentData.roundOf16[i-1] = {...this.testData}
+      }
+      for(let i=1;i<5;i++) {
+        this.testData.matchNumber = i;
+        this.tournamentData.quarterFinals[i-1] = {...this.testData}
+      }
+      for(let i=1;i<3;i++) {
+        this.testData.matchNumber = i;
+        this.tournamentData.semiFinals[i-1] = {...this.testData}
+      }
+      this.testData.matchNumber = 1;
+      this.tournamentData.final = {...this.testData};
+      console.log(this.tournamentData)
+    }
+
     openMatchDetails() {  
       this._route.navigate(['match-details']);
     }

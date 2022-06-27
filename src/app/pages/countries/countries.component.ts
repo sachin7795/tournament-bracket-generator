@@ -35,7 +35,7 @@ export class CountriesComponent {
         if(index>-1) {
             this.countries.splice(index, 1)
         }
-        this.countries.unshift(country);
+        country.name && country.rank && this.countries.unshift(country);
         this.addEditFormVisible = false;
         this.isAdd = true;
         this.country = new Country();
