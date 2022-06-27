@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { MatchDetails, Statistics } from "src/app/models/match-details.model";
+import { MatchDetails } from "src/app/models/match-details.model";
+import { Statistics } from "src/app/models/statistics.model";
 
 @Component({
     selector: 'match-details-stats',

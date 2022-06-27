@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Team } from "src/app/models/match-card.model";
+import { Team } from "src/app/models/team.model";
 
 @Component({
     selector: 'match-card-team-row',

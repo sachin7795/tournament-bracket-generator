@@ -14,11 +14,18 @@ export class CountriesComponent {
     country: Country = new Country();
     orgCountry: Country = new Country();
     countries: Country[] = [];
+    data: any[] = [];
+    headers: string[] = [];
 
     constructor(private countriesService: CountriesService) {}
 
     ngOnInit() {
         this.countries = this.countriesService.getCountries();
+        this.countries.forEach(c=>{
+           let obj = {metaData: c, tableData:[c.name,c.rank]}
+           this.data.push(obj);
+        });
+        this.headers = ["Name", "Rank"];
     }
 
     showAdd() {
@@ -42,11 +49,14 @@ export class CountriesComponent {
         this.orgCountry = new Country();
     }
 
-    editCountry(country: Country) {
-        this.orgCountry = {...country};
-        this.country = {...country};
+    editCountry(row: any) {
+        this.orgCountry = {...row.metaData};
+        this.country = {...row.metaData};
         this.isAdd = false;
         this.addEditFormVisible = true;
     }
 
+    deleteCountry(row: any) {
+        this.countries = this.countries.filter(c=>c.id!=row.metaData.id);
+    }
 }

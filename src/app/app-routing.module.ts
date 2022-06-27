@@ -18,6 +18,11 @@ const routes: Routes = [
     .then(m => m.CountriesModule)  
   },
   {  
+    path: 'players',  
+    loadChildren: () => import('./pages/players/players.module')  
+    .then(m => m.PlayersModule)  
+  },
+  {  
     path: '',  
     loadChildren: () => import('./pages/countries/countries.module')  
     .then(m => m.CountriesModule)   

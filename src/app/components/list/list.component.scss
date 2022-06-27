@@ -1,24 +1,23 @@
-.contries-list-container{
+.list-container{
     .header{
         font-weight: bold;
     }
-    .header,.country{
+    .header,.entity{
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid gainsboro;
         font-size: 18px;
         align-items: center;
-        .name{
+        .head{
             padding: 10px 15px;
-            width: 50%;
+            width: 15%;
         }
-        .rank{
+        .cell{
             padding: 10px 15px;
-            width: 30%;
-            text-align: right;
+            width: 15%;
         }
         .actions {
-            width: 20%;
+            width: 15%;
             text-align: right;
             .delete{
                 color: red;

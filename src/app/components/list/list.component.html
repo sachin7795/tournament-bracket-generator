@@ -1,0 +1,13 @@
+<div class="list-container">
+    <div class="header">
+        <div class="head" *ngFor="let head of headers">{{head}}</div>
+        <div class="actions">Actions</div>
+    </div>
+    <div class="entity" *ngFor="let entity of data;let i=index;">
+        <div class="cell" *ngFor="let cellData of entity.tableData;let j=index;">{{cellData}}</div>
+        <div class="actions">
+            <mat-icon (click)="editEntity(entity)">edit</mat-icon>
+            <mat-icon class="delete" (click)="deleteEntity(entity)">delete</mat-icon>
+        </div>
+    </div>
+</div>

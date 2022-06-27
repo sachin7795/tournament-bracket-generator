@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatchDetails, Statistics } from 'src/app/models/match-details.model';
+import { MatchDetails } from 'src/app/models/match-details.model';
 
 @Component({
   selector: 'match-details',
