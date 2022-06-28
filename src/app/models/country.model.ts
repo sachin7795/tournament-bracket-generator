@@ -1,5 +1,5 @@
 export class Country {
-    id?: number;
+    id?: string;
     name: string = '';
     rank!: number;
 }

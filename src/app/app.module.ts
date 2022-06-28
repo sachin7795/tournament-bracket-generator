@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarModule } from './components/navbar/navbar.module';
 import { MatchDetailsModule } from './pages/match-details/match-details.module';
 import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashboard.module';
 
@@ -15,7 +16,8 @@ import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashbo
     BrowserAnimationsModule,
     AppRoutingModule,
     MatchDetailsModule,
-    MatchesDashboardModule
+    MatchesDashboardModule,
+    NavbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

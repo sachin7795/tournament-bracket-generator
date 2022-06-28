@@ -23,6 +23,11 @@ const routes: Routes = [
     .then(m => m.PlayersModule)  
   },
   {  
+    path: 'seasons',  
+    loadChildren: () => import('./pages/seasons/seasons.module')  
+    .then(m => m.SeasonsModule)  
+  },
+  {  
     path: '',  
     loadChildren: () => import('./pages/countries/countries.module')  
     .then(m => m.CountriesModule)   

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../models/player.model';
+import { UtilityFunctions } from '../utilities/utility-functions';
 
 @Injectable()
 export class PlayersService {
@@ -10,16 +11,16 @@ export class PlayersService {
     {
         firstName: 'Test',
         lastName: 'Player',
-        gender: 'Male',
-        birthDate: new Date('24-09-1987'),
-        id: 1
+        gender: 'male',
+        birthDate: new Date('09-24-1987'),
+        id: UtilityFunctions.generateUuid()
     },
     {
         firstName: 'Test',
         lastName: 'Player 1',
-        gender: 'Male',
-        birthDate: new Date('24-09-1986'),
-        id: 2
+        gender: 'male',
+        birthDate: new Date('09-24-1986'),
+        id: UtilityFunctions.generateUuid()
     }
 ];
 

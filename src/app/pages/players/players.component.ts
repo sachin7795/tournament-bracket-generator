@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
+import { UtilityFunctions } from 'src/app/utilities/utility-functions';
 
 @Component({
   selector: 'players',
@@ -38,17 +39,20 @@ export class PlayersComponent {
     }
 
     addOrUpdatePlayer(player: Player) {
-        let index = this.players.findIndex(c=>c.firstName==this.orgPlayer.firstName 
-            && c.lastName==this.orgPlayer.lastName
-            && c.birthDate==this.orgPlayer.birthDate
-            && c.gender==this.orgPlayer.gender);
-        if(index>-1) {
-            this.players.splice(index, 1)
+        if(player.id){
+            let index = this.players.findIndex(c=>c.id==this.orgPlayer.id);
+            if(index>-1) {
+                this.players.splice(index, 1)
+            }
+            let index2 = this.data.findIndex(c=>c.metaData.id==this.orgPlayer.id);
+            if(index>-1) {
+                this.data.splice(index2, 1)
+            }
+        } else {
+            player.id = UtilityFunctions.generateUuid();
         }
-        this.orgPlayer.firstName 
-        && this.orgPlayer.lastName
-        && this.orgPlayer.birthDate
-        && this.orgPlayer.gender && this.players.unshift(player);
+        this.players.unshift(player);
+        this.data.unshift({metaData: player, tableData:[player.firstName,player.lastName,player.birthDate,player.gender,player.team?.name]});
         this.addEditFormVisible = false;
         this.isAdd = true;
         this.player = new Player();
@@ -64,6 +68,7 @@ export class PlayersComponent {
 
     deletePlayer(row: any) {
         this.players = this.players.filter(c=>c.id!=row.metaData.id);
+        this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
     }
 
 }

@@ -6,7 +6,8 @@
     <div class="entity" *ngFor="let entity of data;let i=index;">
         <div class="cell" *ngFor="let cellData of entity.tableData;let j=index;">{{cellData}}</div>
         <div class="actions">
-            <mat-icon (click)="editEntity(entity)">edit</mat-icon>
+            <mat-icon class="action-cta" *ngIf="entity.metaData.status=='Inprogress' || !entity.metaData.status" (click)="editEntity(entity)">edit</mat-icon>
+            <mat-icon class="view action-cta" *ngIf="entity.metaData.status=='Completed'" (click)="viewEntity(entity)">visibility</mat-icon>
             <mat-icon class="delete" (click)="deleteEntity(entity)">delete</mat-icon>
         </div>
     </div>

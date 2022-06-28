@@ -1,0 +1,48 @@
+<div class="add-edit-player-container">
+    <div class="form-header">
+        {{isAdd?'Add Player':'Edit Player'}}
+    </div>
+    <form (ngSubmit)="addPlayer()">
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input required matInput type="text" [(ngModel)]="player.firstName" name="firstName" type="firstName" placeholder="Enter Player First Name...">
+                <mat-error *ngIf="!player.firstName || (player.firstName && player.firstName.trim()=='')">Player First Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input required matInput type="text" [(ngModel)]="player.lastName" name="lastName" type="lastName" placeholder="Enter Player Last Name...">
+                <mat-error *ngIf="!player.lastName || (player.lastName && player.lastName.trim()=='')">Player Last Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>Birth Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="player.birthDate" name="birthDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <select matNativeControl required [(ngModel)]="player.gender" name="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>Team</mat-label>
+                <mat-select [(ngModel)]="player.team" name="team">
+                  <mat-option *ngFor="let team of teams" [value]="team">
+                    {{team.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary" type="submit">{{isAdd?'Add':'update'}}</button>
+            </div>
+        </div>
+    </form>
+</div>

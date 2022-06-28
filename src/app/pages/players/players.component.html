@@ -6,10 +6,10 @@
            <mat-icon (click)="hideAdd()" *ngIf="addEditFormVisible && isAdd">cancel</mat-icon>
        </div>
     </div>
-    <!-- <add-edit-country *ngIf="addEditFormVisible"
+    <add-edit-player *ngIf="addEditFormVisible"
                       [isAdd]="isAdd"
-                      [country]="player"
-                      (updatedCountry)="addOrUpdatePlayer($event)"></add-edit-country> -->
+                      [player]="player"
+                      (updatedPlayer)="addOrUpdatePlayer($event)"></add-edit-player>
     <list [data]="data" [headers]="headers"
                     (edit)="editPlayer($event)"></list>
 </div>

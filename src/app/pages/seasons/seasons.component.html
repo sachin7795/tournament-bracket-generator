@@ -1,0 +1,13 @@
+<div class="countries-container">
+    <div class="header">
+       <div class="list-header">Seasons</div>
+       <div class="new-season">
+           <button mat-raised-button color="primary"
+                (click)="GenerateNewSeason()">Generate New Season</button>
+       </div>
+    </div>
+    <list [data]="data" [headers]="headers"
+                    (edit)="editSeason($event)"
+                    (view)="viewSeason($event)"
+                    (delete)="deleteSeason($event)"></list>
+</div>

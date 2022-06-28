@@ -1,0 +1,10 @@
+<div class="navbar-container">
+    <div class="left">
+        <div [routerLink]="['/seasons']" routerLinkActive="active" class="item">Seasons</div>
+        <div [routerLink]="['/countries']" routerLinkActive="active" class="item">Countries</div>
+        <div [routerLink]="['/players']" routerLinkActive="active" class="item">Players</div>
+    </div>
+    <div class="right">
+        <div class="item" (click)="logout()">Logout</div>
+    </div>
+</div>

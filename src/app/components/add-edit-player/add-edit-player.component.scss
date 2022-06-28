@@ -1,0 +1,25 @@
+.add-edit-player-container{
+    border: 1px solid gainsboro;
+    padding: 20px;
+    margin: 20px 0px;
+    border-radius: 10px;
+    .form-header{
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        .form-row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mat-form-field{
+                width: 48%;
+            }
+            margin-bottom: 20px;
+        }
+        margin-bottom: 20px;
+    }
+}

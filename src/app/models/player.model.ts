@@ -6,5 +6,5 @@ export class Player {
     gender: string = '';
     birthDate!: Date;
     team?: Team;
-    id?: number;
+    id?: string;
 }
