@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Country } from 'src/app/models/country.model';
 import { Season } from 'src/app/models/season.model';
-import { CountriesService } from 'src/app/services/countries.service';
 import { SeasonsService } from 'src/app/services/seasons.service';
-import { UtilityFunctions } from 'src/app/utilities/utility-functions';
 
 @Component({
   selector: 'seasons',
@@ -21,20 +18,27 @@ export class SeasonsComponent {
         private _route: Router) {}
 
     ngOnInit() {
-        this.seasons = this.seasonsService.getSeasons();
-        this.seasons.forEach(c=>{
-           let obj = {metaData: c, tableData:[c.name,c.status]}
-           this.data.push(obj);
-        });
-        this.headers = ["Name", "Status"];
+        this.seasonsService.getSeasons().subscribe(
+            (res) => {
+                this.seasons = <Season[]>res;
+                this.seasons.forEach(c=>{
+                let obj = {metaData: c, tableData:[c.name,c.status]}
+                this.data.push(obj);
+                });
+                this.headers = ["Name", "Status"];
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
     }
 
     editSeason(row: any) {
-        this._route.navigate(['matches-dashboard']);
+        this._route.navigate(['matches-dashboard/'+row.metaData.id]);
     }
 
     viewSeason(row: any) {
-        this._route.navigate(['matches-dashboard']);
+        this._route.navigate(['matches-dashboard/'+row.metaData.id]);
     }
 
     deleteSeason(row: any) {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatchCard } from 'src/app/models/match-card.model';
 import { Tournament } from 'src/app/models/tournament.model';
+import { MatchesDashboardService } from 'src/app/services/matches-dashboard.service';
 
 @Component({
   selector: 'matches-dashboard',
@@ -9,32 +10,35 @@ import { Tournament } from 'src/app/models/tournament.model';
   styleUrls: ['./matches-dashboard.component.scss']
 })
 export class MatchesDashboardComponent {
+  
+    tournamentData: Tournament = new Tournament();
 
-    constructor(private _route: Router) {}
+    constructor(private _route: Router, 
+                private mdService: MatchesDashboardService,
+                private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
-      for(let i=1;i<9;i++) {
-        this.testData.matchNumber = i;
-        this.tournamentData.roundOf16[i-1] = {...this.testData}
-      }
-      for(let i=1;i<5;i++) {
-        this.testData.matchNumber = i;
-        this.tournamentData.quarterFinals[i-1] = {...this.testData}
-      }
-      for(let i=1;i<3;i++) {
-        this.testData.matchNumber = i;
-        this.tournamentData.semiFinals[i-1] = {...this.testData}
-      }
-      this.testData.matchNumber = 1;
-      this.tournamentData.final = {...this.testData};
-      console.log(this.tournamentData)
+      this.activatedRoute.paramMap.subscribe((obj)=>{
+        let id = <string>obj.get('id');
+        this.fetchDetails(id);
+      });
+    }
+
+    fetchDetails(id: string) {
+      this.mdService.getSeasonDetails(id).subscribe(
+        (res) => {
+          this.tournamentData = <Tournament>res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
     }
 
     openMatchDetails() {  
       this._route.navigate(['match-details']);
     }
 
-    tournamentData: Tournament = new Tournament();
 
     testData: MatchCard = {
       matchNumber: 1,

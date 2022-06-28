@@ -19,7 +19,14 @@ export class AddEditPlayerComponent {
     constructor(private countriesService: CountriesService) {}
 
     ngOnInit() {
-      this.teams = this.countriesService.getCountries();
+      this.countriesService.getCountries().subscribe(
+        (res) => {
+          this.teams = <Country[]>res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
 
     addPlayer() {

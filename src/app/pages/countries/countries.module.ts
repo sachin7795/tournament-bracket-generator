@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CountriesRoutingModule } from './countries-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CountriesRoutingModule } from './countries-routing.module';
     MatButtonModule,
     MatIconModule,
     ListModule,
-    CountriesRoutingModule
+    CountriesRoutingModule,
+    HttpClientModule
   ],
   providers: [CountriesService],
   bootstrap: [CountriesComponent]

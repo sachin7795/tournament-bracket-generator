@@ -14,6 +14,7 @@ import { PlayersService } from 'src/app/services/players.service';
 import { ListModule } from 'src/app/components/list/list.module';
 import { AddEditPlayerComponent } from 'src/app/components/add-edit-player/add-edit-player.component';
 import { CountriesService } from 'src/app/services/countries.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CountriesService } from 'src/app/services/countries.service';
     ListModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
   ],
   providers: [PlayersService, CountriesService, MatDatepickerModule],
   bootstrap: [PlayersComponent]

@@ -18,15 +18,22 @@ export class PlayersComponent {
     data: any[] = [];
     headers: string[] = [];
 
-    constructor(private countriesService: PlayersService) {}
+    constructor(private playersService: PlayersService) {}
 
     ngOnInit() {
-        this.players = this.countriesService.getPlayers();
-        this.players.forEach(c=>{
-           let obj = {metaData: c, tableData:[c.firstName,c.lastName,c.birthDate,c.gender,c.team?.name]}
-           this.data.push(obj);
-        });
-        this.headers = ["First Name", "Last Name", "Birth Date", "Gender", "Team"];
+        this.playersService.getPlayers().subscribe(
+            (res) => {
+                this.players = <Player[]>res;
+                this.players.forEach(c=>{
+                   let obj = {metaData: c, tableData:[c.firstName,c.lastName,c.birthDate,c.gender,c.team?.name]}
+                   this.data.push(obj);
+                });
+                this.headers = ["First Name", "Last Name", "Birth Date", "Gender", "Team"];
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
     }
 
     showAdd() {

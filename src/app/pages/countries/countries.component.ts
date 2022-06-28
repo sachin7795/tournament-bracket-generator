@@ -21,12 +21,19 @@ export class CountriesComponent {
     constructor(private countriesService: CountriesService) {}
 
     ngOnInit() {
-        this.countries = this.countriesService.getCountries();
-        this.countries.forEach(c=>{
-           let obj = {metaData: c, tableData:[c.name,c.rank]}
-           this.data.push(obj);
-        });
-        this.headers = ["Name", "Rank"];
+        this.countriesService.getCountries().subscribe(
+            (res) => {
+                this.countries = <Country[]>res;
+                this.countries.forEach(c=>{
+                   let obj = {metaData: c, tableData:[c.name,c.rank]}
+                   this.data.push(obj);
+                });
+                this.headers = ["Name", "Rank"];
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
     }
 
     showAdd() {

@@ -5,6 +5,7 @@ import { ListModule } from 'src/app/components/list/list.module';
 import { SeasonsRoutingModule } from './seasons-routing.module';
 import { SeasonsService } from 'src/app/services/seasons.service';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     ListModule,
     SeasonsRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   providers: [SeasonsService],
   bootstrap: [SeasonsComponent]

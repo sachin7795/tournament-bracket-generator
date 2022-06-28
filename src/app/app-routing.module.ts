@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {  
-    path: 'matches-dashboard',  
+    path: 'matches-dashboard/:id',  
     loadChildren: () => import('./pages/matches-dashboard/matches-dashboard.module')  
     .then(m => m.MatchesDashboardModule)  
   },
@@ -29,8 +29,8 @@ const routes: Routes = [
   },
   {  
     path: '',  
-    loadChildren: () => import('./pages/countries/countries.module')  
-    .then(m => m.CountriesModule)   
+    loadChildren: () => import('./pages/seasons/seasons.module')  
+    .then(m => m.SeasonsModule)   
   }
 ];
 

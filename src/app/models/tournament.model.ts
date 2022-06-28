@@ -1,6 +1,8 @@
 import { MatchCard } from "./match-card.model";
 
 export class Tournament {
+    id: string = '';
+    status: string = '';
     roundOf16: MatchCard[] = [];
     quarterFinals: MatchCard[] = [];
     semiFinals: MatchCard[] = [];

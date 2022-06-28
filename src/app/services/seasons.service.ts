@@ -1,31 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Season } from '../models/season.model';
-import { UtilityFunctions } from '../utilities/utility-functions';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SeasonsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  seasons: Season[] = [
-    {
-        id: UtilityFunctions.generateUuid(),
-        name: 'Season 1',
-        status: "Completed"
-    },
-    {
-        id: UtilityFunctions.generateUuid(),
-        name: 'Season 2',
-        status: "Inprogress"
-    },
-    {
-        id: UtilityFunctions.generateUuid(),
-        name: 'Season 3',
-        status: "Completed"
-    }
-];
-
-  getSeasons(): Season[] {
-    return this.seasons;
+  getSeasons() {
+    return this.http.get(environment.BACKEND_HOST + '/seasons');
   }
 }
