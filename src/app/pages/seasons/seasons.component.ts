@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AddSeasonComponent } from 'src/app/components/add-season/add-season.component';
 import { Season } from 'src/app/models/season.model';
 import { SeasonsService } from 'src/app/services/seasons.service';
 
@@ -15,7 +17,8 @@ export class SeasonsComponent {
     headers: string[] = [];
 
     constructor(private seasonsService: SeasonsService,
-        private _route: Router) {}
+        private _route: Router,
+        private dialog: MatDialog) {}
 
     ngOnInit() {
         this.seasonsService.getSeasons().subscribe(
@@ -42,11 +45,36 @@ export class SeasonsComponent {
     }
 
     deleteSeason(row: any) {
-        this.seasons = this.seasons.filter(c=>c.id!=row.metaData.id);
-        this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+        this.seasonsService.deleteSeason(row.metaData.id).subscribe(
+            (success) => {
+                this.seasons = this.seasons.filter(c=>c.id!=row.metaData.id);
+                this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
     }
 
     GenerateNewSeason() {
-        this._route.navigate(['matches-dashboard']);
+        let dialogRef = this.dialog.open(AddSeasonComponent, {
+            height: '200px',
+            width: '400px',
+          });
+        dialogRef.afterClosed().subscribe(season => {
+         this.addSeason(JSON.parse(season));
+        });
     }
+
+    addSeason(season: Season) {
+        this.seasonsService.addSeason(season).subscribe(
+            (res) => {
+                this._route.navigateByUrl('/matches-dashboard/'+(<any>res).id);
+            },
+            (err) => {
+                console.log(err);
+            }
+        )
+    }
+
 }

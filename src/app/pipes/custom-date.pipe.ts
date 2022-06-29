@@ -8,6 +8,7 @@ export class CustomDatePipe implements PipeTransform {
   transform(value: Date, withYear?: boolean): string {
     let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    if(!value) return 'TBD';
     value = new Date(value);
     return withYear?
     day[value.getDay()] + ', ' +value.getDate() + ' '+ month[value.getMonth()] + ' ' + value.getFullYear():

@@ -1,0 +1,13 @@
+<div class="add-season-container">
+    <form (ngSubmit)="generateSeason()">
+        <mat-form-field>
+            <mat-label>Season Name</mat-label>
+            <input matInput type="text" [(ngModel)]="season.name" name="seasonName" type="seasonName" placeholder="Enter Season Name...">
+            <mat-error *ngIf="!season.name || (season.name && season.name.trim()=='')">Season Name is required</mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button color="primary" type="submit">Generate</button>
+        </div>
+    </form>
+    <div class="message">Season will be generated with top 16 ranked countries</div>
+</div>

@@ -1,7 +1,13 @@
-.save-button{
-    position: absolute;
-    right: 10px;
-    top: 88px;
+.md-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background: #2f2727;
+    color: white;
+    h2{
+        text-transform: uppercase;
+        font-size: 32px;
+    }
 }
 .matches-dahboard-container{
     display: flex;

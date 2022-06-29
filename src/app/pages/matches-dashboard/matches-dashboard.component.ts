@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatchCard } from 'src/app/models/match-card.model';
+import { UpdateMatchCardComponent } from 'src/app/components/update-match-card/update-match-card.component';
+import { MatchDetails } from 'src/app/models/match-details.model';
 import { Tournament } from 'src/app/models/tournament.model';
 import { MatchesDashboardService } from 'src/app/services/matches-dashboard.service';
 
@@ -15,7 +17,8 @@ export class MatchesDashboardComponent {
 
     constructor(private _route: Router, 
                 private mdService: MatchesDashboardService,
-                private activatedRoute: ActivatedRoute) {}
+                private activatedRoute: ActivatedRoute,
+                private dialog: MatDialog) {}
 
     ngOnInit() {
       this.activatedRoute.paramMap.subscribe((obj)=>{
@@ -35,35 +38,50 @@ export class MatchesDashboardComponent {
       )
     }
 
-    openMatchDetails() {  
-      this._route.navigate(['match-details']);
+    openMatchDetails(data: any) { 
+      if(data.teamOne.name!='TBD' && data.teamTwo.name !='TBD' && data.status!="Full-time") {
+        let dialogRef = this.dialog.open(UpdateMatchCardComponent, {
+            data: { name: this.tournamentData.name, content: data},
+            height: '980px',
+            width: '800px',
+          });
+        dialogRef.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          console.log(data.save);
+          if(data.save) {
+            console.log("here...");
+            this.saveMatchDetails(data.data);
+          }
+        });
+      } else if(data.status=="Full-time") {
+        console.log('you can not modify the decided match');
+      } else {
+        console.log('Please decide result for previous match first')
+      }
+      // this._route.navigate(['match-details']);
     }
 
+    saveSeasonDetails() {
+      this.mdService.saveSeasonDetails(this.tournamentData).subscribe(
+        (res) => {
+          this.ngOnInit();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+    }
 
-    testData: MatchCard = {
-      matchNumber: 1,
-      stage: 'Round of 16',
-      date: new Date(),
-      status: 'Full-time',
-      teamOne: {
-          name: 'Burkina For Long Name',
-          score: 2,
-          penaltyScore: 4,
-          flag: 'flag_circle',
-          isWinner: true,
-          rank: 1
-      },
-      teamTwo: {
-          name: 'Gabon',
-          score: 2,
-          penaltyScore: 3,
-          flag: 'flag_circle',
-          isWinner: false,
-          rank: 2
-      },
-      penalty: {
-          totalPenalties: 5
-      }
-  }
+    saveMatchDetails(matchDetails: MatchDetails) {
+      matchDetails.status = 'Full-time';
+      this.mdService.saveMatchDetails(matchDetails).subscribe(
+        (res) => {
+          this.ngOnInit();
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+    }
 
 }

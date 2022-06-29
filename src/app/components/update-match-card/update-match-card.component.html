@@ -1,0 +1,161 @@
+<div class="update-match-container">
+    <div class="um-header">
+        <div class="title">Update Match Details</div>
+    </div>
+    <div class="um-body">
+        <div class="match-date">
+            <mat-form-field>
+                <mat-label>Enter Match Date</mat-label>
+                <input required matInput [matDatepicker]="picker" [(ngModel)]="matchDetails.date" name="matchDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="match-details">
+            <div>{{matchDetails.tournamentName}}</div>
+            <div class="stage">{{matchDetails.stage}}</div>
+        </div>
+        <form>
+            <div class="form-row">
+                <div class="left team-name">
+                    {{matchDetails.teamOne.name}}
+                </div>
+                <div class="right team-name">
+                    {{matchDetails.teamTwo.name}}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Score</mat-label>
+                        <input required matInput type="number" (input)="scoreEntered()" [(ngModel)]="matchDetails.teamOne.score" name="teamOneScore" placeholder="Enter Score...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Score</mat-label>
+                        <input required matInput type="number" (input)="scoreEntered()" [(ngModel)]="matchDetails.teamTwo.score" name="teamTwoScore" placeholder="Enter Score...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row" *ngIf="matchDetails.teamTwo.score===matchDetails.teamOne.score">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Penalty Score</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.penaltyScore" name="teamOnePenaltyScore" placeholder="Enter Penalty Score...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Penalty Score</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.penaltyScore" name="teamTwoPenaltyScore" placeholder="Enter Penalty Score...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Fouls</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.fouls" name="teamOneFouls" placeholder="Enter Fouls...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Fouls</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.fouls" name="teamTwoFouls" placeholder="Enter Fouls...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Pass Accuracy</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.passAccuracy" name="teamOnePassAccuracy" placeholder="Enter Pass Accuracy...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Pass Accuracy</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.passAccuracy" name="teamTwoPassAccuracy" placeholder="Enter Pass Accuracy...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Passes</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.passes" name="teamOnePasses" placeholder="Enter Passes...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Passes</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.passes" name="teamTwoPasses" placeholder="Enter Passes...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Possession</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.possession" name="teamOnePossession" placeholder="Enter Possession...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Possession</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.possession" name="teamTwoPossession" placeholder="Enter Possession...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Shots</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.shots" name="teamOneShots" placeholder="Enter Shots...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Shots</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.shots" name="teamTwoShots" placeholder="Enter Shots...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Shots On Target</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.shotsOnTarget" name="teamOneShotsOnTarget" placeholder="Enter Shots On Target...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Shots On Target</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.shotsOnTarget" name="teamTwoShotsOnTarget" placeholder="Enter Shots On Target...">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="left">
+                    <mat-form-field>
+                        <mat-label>Yellow Cards</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamOne.stats.yellowCards" name="teamOneYellowCards" placeholder="Enter Yellow Cards...">
+                    </mat-form-field>
+                </div>
+                <div class="right">
+                    <mat-form-field>
+                        <mat-label>Yellow Cards</mat-label>
+                        <input required matInput type="number" [(ngModel)]="matchDetails.teamTwo.stats.yellowCards" name="teamTwoYellowCards" placeholder="Enter Yellow Cards...">
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="um-footer">
+        <div class="error-msg" *ngIf="showError">{{errorMsg}}</div>
+        <button mat-raised-button color="warning" (click)="cancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </div>
+</div>

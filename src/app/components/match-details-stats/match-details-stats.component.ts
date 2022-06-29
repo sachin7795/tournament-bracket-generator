@@ -25,6 +25,6 @@ export class MatchDetailsStatsComponent {
     }
 
     objectRead(obj: Statistics, key: string) {
-        return (obj as any)[key];
+        return key=='passAccuracy' || key=='possession'?(obj as any)[key]+'%':(obj as any)[key];
     }
 }

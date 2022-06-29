@@ -23,9 +23,9 @@ export class MatchDetailsComponent {
           stats: {
               shots: 13,
               shotsOnTarget: 4,
-              possession: '40%',
+              possession: 40,
               passes: 230,
-              passAccuracy: '60%',
+              passAccuracy: 60,
               fouls: 5,
               yellowCards: 8
           }
@@ -38,9 +38,9 @@ export class MatchDetailsComponent {
           stats: {
               shots: 23,
               shotsOnTarget: 9,
-              possession: '60%',
+              possession: 60,
               passes: 430,
-              passAccuracy: '70%',
+              passAccuracy: 70,
               fouls: 9,
               yellowCards: 12
           }

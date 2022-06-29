@@ -1,0 +1,14 @@
+.add-season-container{
+    padding: 20px;
+    form{
+        text-align: end;
+        mat-form-field{
+            width: 100%;
+        }
+    }
+    .message{
+        color: rgb(182, 182, 19);
+        font-weight: 600;
+        margin-top: 10px;
+    }
+}

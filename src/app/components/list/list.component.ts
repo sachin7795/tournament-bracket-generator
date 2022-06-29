@@ -24,7 +24,6 @@ export class ListComponent {
     }
 
     deleteEntity(entity: any) {
-      this.data = this.data.filter(o=>o.metaData.id!=entity.metaData.id);
       this.delete.emit(entity);
     }
 
