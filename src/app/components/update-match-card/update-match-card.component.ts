@@ -28,7 +28,6 @@ export class UpdateMatchCardComponent {
         this.matchDetails.teamTwo.flag = this.data.content.teamTwo.flag;
         this.matchDetails.teamTwo.name = this.data.content.teamTwo.name;
         this.matchDetails.teamTwo.rank = this.data.content.teamTwo.rank;
-        console.log(this.matchDetails, this.data);
     }
 
     cancel() {
