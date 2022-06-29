@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AddSeasonComponent } from 'src/app/components/add-season/add-season.component';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
@@ -19,9 +20,17 @@ export class SeasonsComponent {
 
     constructor(private seasonsService: SeasonsService,
         private _route: Router,
-        private dialog: MatDialog) {}
+        private dialog: MatDialog,
+        private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
+        this.headers = ["Name", "Status"];
+        this.getSeasons();
+    }
+
+    getSeasons() {
+        this.seasons = [];
+        this.data = [];
         this.seasonsService.getSeasons().subscribe(
             (res) => {
                 this.seasons = <Season[]>res;
@@ -29,10 +38,12 @@ export class SeasonsComponent {
                 let obj = {metaData: c, tableData:[c.name,c.status]}
                 this.data.push(obj);
                 });
-                this.headers = ["Name", "Status"];
             },
             (err) => {
                 console.log(err);
+                this._snackBar.open('Unable to get seasons', 'Close', {
+                    duration: 3000,
+                });
             }
         )
     }
@@ -57,11 +68,16 @@ export class SeasonsComponent {
           if(data.yes) {
               this.seasonsService.deleteSeason(row.metaData.id).subscribe(
                   (success) => {
-                      this.seasons = this.seasons.filter(c=>c.id!=row.metaData.id);
-                      this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+                      this.getSeasons();
+                    this._snackBar.open('Season deleted successfully', 'Close', {
+                        duration: 3000,
+                    });
                   },
                   (err) => {
                       console.log(err);
+                      this._snackBar.open('Unable to delete season', 'Close', {
+                        duration: 3000,
+                      });
                   }
               )
           }
@@ -87,6 +103,9 @@ export class SeasonsComponent {
             },
             (err) => {
                 console.log(err);
+                this._snackBar.open('Unable to add new season', 'Close', {
+                    duration: 3000,
+                });
             }
         )
     }

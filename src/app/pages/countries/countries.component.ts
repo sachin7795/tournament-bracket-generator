@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { CountriesService } from 'src/app/services/countries.service';
@@ -21,7 +22,8 @@ export class CountriesComponent {
     headers: string[] = [];
 
     constructor(private countriesService: CountriesService,
-                private dialog: MatDialog) {}
+                private dialog: MatDialog,
+                private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.headers = ["Name", "Rank"];
@@ -41,6 +43,9 @@ export class CountriesComponent {
             },
             (err) => {
                 console.log(err);
+                this._snackBar.open('Unable to fetch countries', 'Close', {
+                    duration: 3000,
+                });
             }
         )
     }
@@ -58,22 +63,32 @@ export class CountriesComponent {
         if(country.id) {
             this.countriesService.updateCountry(country).subscribe(
                 (success) => {
-                    console.log('Country Updated Successfully');
+                    this._snackBar.open('Country Updated Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getCountries();
                 },
                 (err) => {
-                    console.log('Unable to update country');
+                    console.log(err);
+                    this._snackBar.open('Unable to update country', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
         } else {
             this.country.id = UtilityFunctions.generateUuid();
             this.countriesService.addCountry(country).subscribe(
                 (success) => {
-                    console.log('Country Added Successfully');
+                    this._snackBar.open('Country Added Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getCountries();
                 },
                 (err) => {
-                    console.log('Unable to add country');
+                    console.log(err);
+                    this._snackBar.open('Unable to add country', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
         }
@@ -102,11 +117,16 @@ export class CountriesComponent {
           if(data.yes) {
             this.countriesService.deleteCountry(row.metaData.id).subscribe(
                 (success) => {
-                    console.log('Country Deleted Successfully');
+                    this._snackBar.open('Country Deleted Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getCountries();
                 },
                 (err) => {
-                    console.log('Unable to delete country');
+                    console.log(err);
+                    this._snackBar.open('Unable to delete country', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
           }

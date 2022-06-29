@@ -16,7 +16,6 @@ export class MatchDetailsStatsComponent {
     constructor() {}
 
     ngOnInit() {
-        console.log(this.matchDetails);
         this.stats = Object.keys(this.matchDetails.teamOne.stats);
     }
 

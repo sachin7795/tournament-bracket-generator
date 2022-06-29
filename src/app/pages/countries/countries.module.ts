@@ -13,6 +13,7 @@ import { CountriesRoutingModule } from './countries-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CountriesRoutingModule,
     HttpClientModule,
     ConfirmAlertModalModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [CountriesService],
   bootstrap: [CountriesComponent]

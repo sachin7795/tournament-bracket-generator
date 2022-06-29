@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    ConfirmAlertModalModule
+    ConfirmAlertModalModule,
+    MatSnackBarModule
   ],
   providers: [SeasonsService],
   bootstrap: [SeasonsComponent]

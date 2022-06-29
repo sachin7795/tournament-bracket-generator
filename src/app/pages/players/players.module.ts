@@ -17,6 +17,7 @@ import { CountriesService } from 'src/app/services/countries.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/
     MatNativeDateModule,
     HttpClientModule,
     MatDialogModule,
-    ConfirmAlertModalModule
+    ConfirmAlertModalModule,
+    MatSnackBarModule
   ],
   providers: [PlayersService, CountriesService, MatDatepickerModule],
   bootstrap: [PlayersComponent]

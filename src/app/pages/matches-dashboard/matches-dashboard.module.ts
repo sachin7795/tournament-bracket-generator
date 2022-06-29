@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/
     MatNativeDateModule,
     MatDatepickerModule,
     MatSelectModule,
-    ConfirmAlertModalModule
+    ConfirmAlertModalModule,
+    MatSnackBarModule
   ],
   providers: [MatchesDashboardService, MatDatepickerModule],
   bootstrap: [MatchesDashboardComponent]

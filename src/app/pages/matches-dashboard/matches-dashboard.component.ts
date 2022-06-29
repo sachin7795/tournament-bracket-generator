@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { MatchDetailsComponent } from 'src/app/components/match-details/match-details.component';
@@ -20,7 +21,8 @@ export class MatchesDashboardComponent {
     constructor(private _route: Router, 
                 private mdService: MatchesDashboardService,
                 private activatedRoute: ActivatedRoute,
-                private dialog: MatDialog) {}
+                private dialog: MatDialog,
+                private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
       this.activatedRoute.paramMap.subscribe((obj)=>{
@@ -36,6 +38,9 @@ export class MatchesDashboardComponent {
         },
         (err) => {
           console.log(err);
+          this._snackBar.open('Unable to season details', 'Close', {
+            duration: 3000,
+        });
         }
       )
     }
@@ -50,7 +55,6 @@ export class MatchesDashboardComponent {
           });
         dialogRef.afterClosed().subscribe((data:any) => {
           data = JSON.parse(data);
-          console.log(data.save);
           if(data.save) {
             this.saveMatchDetails(data.data);
           }
@@ -92,6 +96,9 @@ export class MatchesDashboardComponent {
         },
         (err) => {
           console.log(err);
+          this._snackBar.open('Unable to save season', 'Close', {
+            duration: 3000,
+        });
         }
       )
     }
@@ -104,6 +111,9 @@ export class MatchesDashboardComponent {
         },
         (err) => {
           console.log(err);
+          this._snackBar.open('Unable to save match details', 'Close', {
+            duration: 3000,
+          });
         }
       )
     }

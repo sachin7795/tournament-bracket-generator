@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatchDetails } from 'src/app/models/match-details.model';
 import { MatchDetailsService } from 'src/app/services/match-details.service';
 
@@ -15,7 +16,8 @@ export class MatchDetailsComponent {
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<MatchDetailsComponent>,
-    private matchDetailsService: MatchDetailsService) {}
+    private matchDetailsService: MatchDetailsService,
+    private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.matchDetailsService.getMatchDetails(this.data.id).subscribe(
@@ -25,6 +27,9 @@ export class MatchDetailsComponent {
             },
             (err) => {
                 console.log(err);
+                this._snackBar.open('Unable to fetch match details', 'Close', {
+                    duration: 3000,
+                });
             }
         )
     }

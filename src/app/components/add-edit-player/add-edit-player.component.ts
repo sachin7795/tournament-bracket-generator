@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Country } from 'src/app/models/country.model';
 import { Player } from 'src/app/models/player.model';
 import { CountriesService } from 'src/app/services/countries.service';
@@ -18,7 +19,8 @@ export class AddEditPlayerComponent {
     showError: boolean = false;
     errorMsg: string = '';
 
-    constructor(private countriesService: CountriesService) {}
+    constructor(private countriesService: CountriesService,
+      private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
       this.countriesService.getCountries().subscribe(
@@ -27,6 +29,9 @@ export class AddEditPlayerComponent {
         },
         (err) => {
           console.log(err);
+          this._snackBar.open('Unable to fetch teams', 'Close', {
+            duration: 3000,
+          });
         }
       );
     }

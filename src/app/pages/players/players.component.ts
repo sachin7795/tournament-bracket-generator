@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
@@ -21,7 +22,8 @@ export class PlayersComponent {
     headers: string[] = [];
 
     constructor(private playersService: PlayersService,
-        private dialog: MatDialog) {}
+        private dialog: MatDialog,
+        private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.headers = ["First Name", "Last Name", "Birth Date", "Gender", "Team"];
@@ -41,6 +43,9 @@ export class PlayersComponent {
             },
             (err) => {
                 console.log(err);
+                this._snackBar.open('Unable to get players', 'Close', {
+                    duration: 3000,
+                });
             }
         )
     }
@@ -58,22 +63,32 @@ export class PlayersComponent {
         if(player.id){
             this.playersService.updatePlayer(player).subscribe(
                 (success) => {
-                    console.log('Player Updated Successfully');
+                    this._snackBar.open('Player Updated Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getPlayers();
                 },
                 (err) => {
-                    console.log('Unable to update player');
+                    console.log(err);
+                    this._snackBar.open('Unable to update player', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
         } else {
             player.id = UtilityFunctions.generateUuid();
             this.playersService.addPlayer(player).subscribe(
                 (success) => {
-                    console.log('Player Added Successfully');
+                    this._snackBar.open('Player Added Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getPlayers();
                 },
                 (err) => {
-                    console.log('Unable to add player');
+                    console.log(err);
+                    this._snackBar.open('Unable to add player', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
         }
@@ -102,11 +117,16 @@ export class PlayersComponent {
           if(data.yes) {
             this.playersService.deletePlayer(row.metaData.id).subscribe(
                 (success) => {
-                    console.log('Player Deleted Successfully');
+                    this._snackBar.open('Player Deleted Successfully', 'Close', {
+                        duration: 3000,
+                    });
                     this.getPlayers();
                 },
                 (err) => {
-                    console.log('Unable to delete player');
+                    console.log(err);
+                    this._snackBar.open('Unable to delete player', 'Close', {
+                        duration: 3000,
+                    });
                 }
             )
           }
