@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
 import { UtilityFunctions } from 'src/app/utilities/utility-functions';
@@ -18,9 +20,17 @@ export class PlayersComponent {
     data: any[] = [];
     headers: string[] = [];
 
-    constructor(private playersService: PlayersService) {}
+    constructor(private playersService: PlayersService,
+        private dialog: MatDialog) {}
 
     ngOnInit() {
+        this.headers = ["First Name", "Last Name", "Birth Date", "Gender", "Team"];
+        this.getPlayers();
+    }
+
+    getPlayers() {
+        this.players = [];
+        this.data = [];
         this.playersService.getPlayers().subscribe(
             (res) => {
                 this.players = <Player[]>res;
@@ -28,7 +38,6 @@ export class PlayersComponent {
                    let obj = {metaData: c, tableData:[c.firstName,c.lastName,c.birthDate,c.gender,c.team?.name]}
                    this.data.push(obj);
                 });
-                this.headers = ["First Name", "Last Name", "Birth Date", "Gender", "Team"];
             },
             (err) => {
                 console.log(err);
@@ -47,19 +56,27 @@ export class PlayersComponent {
 
     addOrUpdatePlayer(player: Player) {
         if(player.id){
-            let index = this.players.findIndex(c=>c.id==this.orgPlayer.id);
-            if(index>-1) {
-                this.players.splice(index, 1)
-            }
-            let index2 = this.data.findIndex(c=>c.metaData.id==this.orgPlayer.id);
-            if(index>-1) {
-                this.data.splice(index2, 1)
-            }
+            this.playersService.updatePlayer(player).subscribe(
+                (success) => {
+                    console.log('Player Updated Successfully');
+                    this.getPlayers();
+                },
+                (err) => {
+                    console.log('Unable to update player');
+                }
+            )
         } else {
             player.id = UtilityFunctions.generateUuid();
+            this.playersService.addPlayer(player).subscribe(
+                (success) => {
+                    console.log('Player Added Successfully');
+                    this.getPlayers();
+                },
+                (err) => {
+                    console.log('Unable to add player');
+                }
+            )
         }
-        this.players.unshift(player);
-        this.data.unshift({metaData: player, tableData:[player.firstName,player.lastName,player.birthDate,player.gender,player.team?.name]});
         this.addEditFormVisible = false;
         this.isAdd = true;
         this.player = new Player();
@@ -74,8 +91,26 @@ export class PlayersComponent {
     }
 
     deletePlayer(row: any) {
-        this.players = this.players.filter(c=>c.id!=row.metaData.id);
-        this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+        let dialogRef1 = this.dialog.open(ConfirmAlertModalComponent, {
+            data: { head:'Delete Player', body: `Are you sure you want to delete ${row.metaData.firstName + ' ' + row.metaData.lastName}`, isConfirm: true },
+            height: '200px',
+            width: '400px',
+            disableClose: true
+          });
+        dialogRef1.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          if(data.yes) {
+            this.playersService.deletePlayer(row.metaData.id).subscribe(
+                (success) => {
+                    console.log('Player Deleted Successfully');
+                    this.getPlayers();
+                },
+                (err) => {
+                    console.log('Unable to delete player');
+                }
+            )
+          }
+        });
     }
 
 }

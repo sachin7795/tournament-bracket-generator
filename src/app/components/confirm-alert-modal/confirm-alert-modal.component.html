@@ -1,0 +1,9 @@
+<div class="confirm-alert-modal-container">
+    <div class="header">{{head}}</div>
+    <div class="body">{{body}}</div>
+    <div class="footer">
+        <button *ngIf="!isConfirm" (click)="ok()" mat-raised-button color="primary">OK</button>
+        <button *ngIf="isConfirm" (click)="no()" mat-raised-button color="warning">No</button>
+        <button *ngIf="isConfirm" (click)="yes()" mat-raised-button color="primary">Yes</button>
+    </div>
+</div>

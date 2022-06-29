@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
+import { MatchDetailsComponent } from 'src/app/components/match-details/match-details.component';
 import { UpdateMatchCardComponent } from 'src/app/components/update-match-card/update-match-card.component';
 import { MatchDetails } from 'src/app/models/match-details.model';
 import { Tournament } from 'src/app/models/tournament.model';
@@ -44,19 +46,41 @@ export class MatchesDashboardComponent {
             data: { name: this.tournamentData.name, content: data},
             height: '980px',
             width: '800px',
+            disableClose: true
           });
         dialogRef.afterClosed().subscribe((data:any) => {
           data = JSON.parse(data);
           console.log(data.save);
           if(data.save) {
-            console.log("here...");
             this.saveMatchDetails(data.data);
           }
         });
       } else if(data.status=="Full-time") {
-        console.log('you can not modify the decided match');
+        let dialogRef1 = this.dialog.open(MatchDetailsComponent, {
+            data: { id: data.id },
+            height: '900px',
+            width: '1200px',
+            disableClose: true
+          });
+        dialogRef1.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          if(data.close) {
+            console.log("close clicked");
+          }
+        });
       } else {
-        console.log('Please decide result for previous match first')
+        let dialogRef2 = this.dialog.open(ConfirmAlertModalComponent, {
+            data: { head:'Action Needed', body: 'Please decide result for previous matches first', isConfirm: false },
+            height: '200px',
+            width: '400px',
+            disableClose: true
+          });
+        dialogRef2.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          if(data.ok) {
+            console.log("Ok clicked");
+          }
+        });
       }
       // this._route.navigate(['match-details']);
     }

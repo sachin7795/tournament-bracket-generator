@@ -11,5 +11,6 @@
                       [player]="player"
                       (updatedPlayer)="addOrUpdatePlayer($event)"></add-edit-player>
     <list [data]="data" [headers]="headers"
-                    (edit)="editPlayer($event)"></list>
+                    (edit)="editPlayer($event)"
+                    (delete)="deletePlayer($event)"></list>
 </div>

@@ -1,4 +1,5 @@
 export class Team {
+    id: string = '';
     name: string = 'TBD';
     flag: string = 'flag_circle';
     rank: number = 0;

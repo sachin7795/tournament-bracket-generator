@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="scores-div">
-            <div class="team-one-score">{{matchDetails.teamOne.score}}</div>
+            <div class="team-one-score">{{matchDetails.teamOne.score}}<span *ngIf="matchDetails.teamOne.penaltyScore">({{matchDetails.teamOne.penaltyScore}})</span></div>
             <div class="hife-div">-</div>
-            <div class="team-two-score">{{matchDetails.teamTwo.score}}</div>
+            <div class="team-two-score">{{matchDetails.teamTwo.score}}<span *ngIf="matchDetails.teamTwo.penaltyScore">({{matchDetails.teamTwo.penaltyScore}})</span></div>
         </div>
         <div class="flag-and-name-div">
             <div class="flag-div">

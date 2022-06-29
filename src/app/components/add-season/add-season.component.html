@@ -6,6 +6,7 @@
             <mat-error *ngIf="!season.name || (season.name && season.name.trim()=='')">Season Name is required</mat-error>
         </mat-form-field>
         <div>
+            <button mat-raised-button (click)="close()" color="warning" type="button">Cancel</button>
             <button mat-raised-button color="primary" type="submit">Generate</button>
         </div>
     </form>

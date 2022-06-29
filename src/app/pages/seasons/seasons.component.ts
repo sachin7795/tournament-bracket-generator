@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AddSeasonComponent } from 'src/app/components/add-season/add-season.component';
+import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Season } from 'src/app/models/season.model';
 import { SeasonsService } from 'src/app/services/seasons.service';
 
@@ -45,24 +46,37 @@ export class SeasonsComponent {
     }
 
     deleteSeason(row: any) {
-        this.seasonsService.deleteSeason(row.metaData.id).subscribe(
-            (success) => {
-                this.seasons = this.seasons.filter(c=>c.id!=row.metaData.id);
-                this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
-            },
-            (err) => {
-                console.log(err);
-            }
-        )
+        let dialogRef1 = this.dialog.open(ConfirmAlertModalComponent, {
+            data: { head:'Delete Season', body: `Are you sure you want to delete ${row.metaData.name}`, isConfirm: true },
+            height: '200px',
+            width: '400px',
+            disableClose: true
+          });
+        dialogRef1.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          if(data.yes) {
+              this.seasonsService.deleteSeason(row.metaData.id).subscribe(
+                  (success) => {
+                      this.seasons = this.seasons.filter(c=>c.id!=row.metaData.id);
+                      this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+                  },
+                  (err) => {
+                      console.log(err);
+                  }
+              )
+          }
+        });
     }
 
     GenerateNewSeason() {
         let dialogRef = this.dialog.open(AddSeasonComponent, {
             height: '200px',
             width: '400px',
+            disableClose: true
           });
         dialogRef.afterClosed().subscribe(season => {
-         this.addSeason(JSON.parse(season));
+         let s = JSON.parse(season)
+         !s.close && this.addSeason(s);
         });
     }
 

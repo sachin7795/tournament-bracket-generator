@@ -5,6 +5,6 @@ export class Player {
     lastName: string = '';
     gender: string = '';
     birthDate!: Date;
-    team?: Team;
+    team: Team = new Team();
     id?: string;
 }

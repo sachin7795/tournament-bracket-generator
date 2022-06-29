@@ -1,4 +1,5 @@
-<div class="match-details-container">
+<div class="match-details-container" *ngIf="load">
+    <mat-icon class="close" (click)="close()">cancel</mat-icon>
     <match-details-header [data]="matchDetails"></match-details-header>
     <div class="stats-div">Stats</div>
     <match-details-stats [data]="matchDetails"></match-details-stats>

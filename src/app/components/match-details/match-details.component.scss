@@ -1,6 +1,12 @@
 .match-details-container{
     padding: 40px;
     background: #2f2b2b;
+    .close{
+        float: right;
+        margin-top: -60px;
+        margin-right: -60px;
+        cursor: pointer;
+    }
     .stats-div{
         color: white;
         font-size: 32px;

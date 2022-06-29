@@ -21,4 +21,8 @@ export class AddSeasonComponent {
         this.dialogRef.close(JSON.stringify(this.season));
     }
 
+    close() {
+        this.dialogRef.close(JSON.stringify({close: true}));
+    }
+
 }

@@ -15,6 +15,8 @@ import { ListModule } from 'src/app/components/list/list.module';
 import { AddEditPlayerComponent } from 'src/app/components/add-edit-player/add-edit-player.component';
 import { CountriesService } from 'src/app/services/countries.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    ConfirmAlertModalModule
   ],
   providers: [PlayersService, CountriesService, MatDatepickerModule],
   bootstrap: [PlayersComponent]

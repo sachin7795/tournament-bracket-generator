@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CountriesRoutingModule } from './countries-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     ListModule,
     CountriesRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmAlertModalModule,
+    MatDialogModule
   ],
   providers: [CountriesService],
   bootstrap: [CountriesComponent]

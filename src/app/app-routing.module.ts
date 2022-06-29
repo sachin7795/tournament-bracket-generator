@@ -8,11 +8,6 @@ const routes: Routes = [
     .then(m => m.MatchesDashboardModule)  
   },
   {  
-    path: 'match-details',  
-    loadChildren: () => import('./pages/match-details/match-details.module')  
-    .then(m => m.MatchDetailsModule)  
-  },
-  {  
     path: 'countries',  
     loadChildren: () => import('./pages/countries/countries.module')  
     .then(m => m.CountriesModule)  

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './components/navbar/navbar.module';
-import { MatchDetailsModule } from './pages/match-details/match-details.module';
+import { MatchDetailsModule } from './components/match-details/match-details.module';
 import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashboard.module';
 
 @NgModule({

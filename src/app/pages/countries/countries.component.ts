@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { CountriesService } from 'src/app/services/countries.service';
 import { UtilityFunctions } from 'src/app/utilities/utility-functions';
@@ -18,9 +20,17 @@ export class CountriesComponent {
     data: any[] = [];
     headers: string[] = [];
 
-    constructor(private countriesService: CountriesService) {}
+    constructor(private countriesService: CountriesService,
+                private dialog: MatDialog) {}
 
     ngOnInit() {
+        this.headers = ["Name", "Rank"];
+        this.getCountries();
+    }
+
+    getCountries() {
+        this.countries = [];
+        this.data = [];
         this.countriesService.getCountries().subscribe(
             (res) => {
                 this.countries = <Country[]>res;
@@ -28,7 +38,6 @@ export class CountriesComponent {
                    let obj = {metaData: c, tableData:[c.name,c.rank]}
                    this.data.push(obj);
                 });
-                this.headers = ["Name", "Rank"];
             },
             (err) => {
                 console.log(err);
@@ -47,19 +56,27 @@ export class CountriesComponent {
 
     addOrUpdateCountry(country: Country) {
         if(country.id) {
-            let index = this.countries.findIndex(c=>c.id==this.orgCountry.id);
-            if(index>-1) {
-                this.countries.splice(index, 1)
-            } 
-            let index2 = this.data.findIndex(c=>c.metaData.id==this.orgCountry.id);
-            if(index>-1) {
-                this.data.splice(index2, 1)
-            }
+            this.countriesService.updateCountry(country).subscribe(
+                (success) => {
+                    console.log('Country Updated Successfully');
+                    this.getCountries();
+                },
+                (err) => {
+                    console.log('Unable to update country');
+                }
+            )
         } else {
             this.country.id = UtilityFunctions.generateUuid();
+            this.countriesService.addCountry(country).subscribe(
+                (success) => {
+                    console.log('Country Added Successfully');
+                    this.getCountries();
+                },
+                (err) => {
+                    console.log('Unable to add country');
+                }
+            )
         }
-        this.countries.unshift(country);
-        this.data.unshift({metaData: country, tableData:[country.name,country.rank]});
         this.addEditFormVisible = false;
         this.isAdd = true;
         this.country = new Country();
@@ -74,7 +91,25 @@ export class CountriesComponent {
     }
 
     deleteCountry(row: any) {
-        this.countries = this.countries.filter(c=>c.id!=row.metaData.id);
-        this.data = this.data.filter(c=>c.metaData.id!=row.metaData.id);
+        let dialogRef1 = this.dialog.open(ConfirmAlertModalComponent, {
+            data: { head:'Delete Country', body: `Are you sure you want to delete ${row.metaData.name}`, isConfirm: true },
+            height: '200px',
+            width: '400px',
+            disableClose: true
+          });
+        dialogRef1.afterClosed().subscribe((data:any) => {
+          data = JSON.parse(data);
+          if(data.yes) {
+            this.countriesService.deleteCountry(row.metaData.id).subscribe(
+                (success) => {
+                    console.log('Country Deleted Successfully');
+                    this.getCountries();
+                },
+                (err) => {
+                    console.log('Unable to delete country');
+                }
+            )
+          }
+        });
     }
 }
