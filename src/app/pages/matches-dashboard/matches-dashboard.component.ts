@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { MatchDetailsComponent } from 'src/app/components/match-details/match-details.component';
 import { UpdateMatchCardComponent } from 'src/app/components/update-match-card/update-match-card.component';
@@ -17,6 +18,7 @@ import { MatchesDashboardService } from 'src/app/services/matches-dashboard.serv
 export class MatchesDashboardComponent {
   
     tournamentData: Tournament = new Tournament();
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private mdService: MatchesDashboardService,
                 private activatedRoute: ActivatedRoute,
@@ -24,14 +26,18 @@ export class MatchesDashboardComponent {
                 private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
-      this.activatedRoute.paramMap.subscribe((obj)=>{
+      this.activatedRoute.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((obj)=>{
         let id = <string>obj.get('id');
         this.fetchDetails(id);
       });
     }
 
     fetchDetails(id: string) {
-      this.mdService.getSeasonDetails(id).subscribe(
+      this.mdService.getSeasonDetails(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (res) => {
           this.tournamentData = <Tournament>res;
         },
@@ -52,7 +58,9 @@ export class MatchesDashboardComponent {
             width: '800px',
             disableClose: true
           });
-        dialogRef.afterClosed().subscribe((data:any) => {
+        dialogRef.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.save) {
             this.saveMatchDetails(data.data);
@@ -65,7 +73,9 @@ export class MatchesDashboardComponent {
             width: '1200px',
             disableClose: true
           });
-        dialogRef1.afterClosed().subscribe((data:any) => {
+        dialogRef1.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.close) {
             console.log("close clicked");
@@ -78,7 +88,9 @@ export class MatchesDashboardComponent {
             width: '400px',
             disableClose: true
           });
-        dialogRef2.afterClosed().subscribe((data:any) => {
+        dialogRef2.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.ok) {
             console.log("Ok clicked");
@@ -88,7 +100,9 @@ export class MatchesDashboardComponent {
     }
 
     saveSeasonDetails() {
-      this.mdService.saveSeasonDetails(this.tournamentData).subscribe(
+      this.mdService.saveSeasonDetails(this.tournamentData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (res) => {
           this.ngOnInit();
         },
@@ -103,7 +117,9 @@ export class MatchesDashboardComponent {
 
     saveMatchDetails(matchDetails: MatchDetails) {
       matchDetails.status = 'Full-time';
-      this.mdService.saveMatchDetails(matchDetails).subscribe(
+      this.mdService.saveMatchDetails(matchDetails)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (res) => {
           this.ngOnInit();
         },
@@ -114,6 +130,11 @@ export class MatchesDashboardComponent {
           });
         }
       )
+    }
+
+    ngOnDestroy() {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
     }
 
 }

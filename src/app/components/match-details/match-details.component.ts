@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { MatchDetails } from 'src/app/models/match-details.model';
 import { MatchDetailsService } from 'src/app/services/match-details.service';
 
@@ -13,6 +14,7 @@ export class MatchDetailsComponent {
 
     matchDetails: MatchDetails = new MatchDetails();
     load: boolean = false;
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<MatchDetailsComponent>,
@@ -20,7 +22,9 @@ export class MatchDetailsComponent {
     private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
-        this.matchDetailsService.getMatchDetails(this.data.id).subscribe(
+        this.matchDetailsService.getMatchDetails(this.data.id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
             (res) => {
                 this.matchDetails = <MatchDetails>res;
                 this.load = true;
@@ -36,5 +40,10 @@ export class MatchDetailsComponent {
 
     close() {
         this.dialogRef.close(JSON.stringify({close: true}));
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

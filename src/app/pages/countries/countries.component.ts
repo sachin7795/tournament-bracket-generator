@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Country } from 'src/app/models/country.model';
 import { CountriesService } from 'src/app/services/countries.service';
@@ -20,6 +21,7 @@ export class CountriesComponent {
     countries: Country[] = [];
     data: any[] = [];
     headers: string[] = [];
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private countriesService: CountriesService,
                 private dialog: MatDialog,
@@ -33,7 +35,9 @@ export class CountriesComponent {
     getCountries() {
         this.countries = [];
         this.data = [];
-        this.countriesService.getCountries().subscribe(
+        this.countriesService.getCountries()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
             (res) => {
                 this.countries = <Country[]>res;
                 this.countries.forEach(c=>{
@@ -61,7 +65,9 @@ export class CountriesComponent {
 
     addOrUpdateCountry(country: Country) {
         if(country.id) {
-            this.countriesService.updateCountry(country).subscribe(
+            this.countriesService.updateCountry(country)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Country Updated Successfully', 'Close', {
                         duration: 3000,
@@ -77,7 +83,9 @@ export class CountriesComponent {
             )
         } else {
             this.country.id = UtilityFunctions.generateUuid();
-            this.countriesService.addCountry(country).subscribe(
+            this.countriesService.addCountry(country)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Country Added Successfully', 'Close', {
                         duration: 3000,
@@ -112,10 +120,14 @@ export class CountriesComponent {
             width: '400px',
             disableClose: true
           });
-        dialogRef1.afterClosed().subscribe((data:any) => {
+        dialogRef1.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.yes) {
-            this.countriesService.deleteCountry(row.metaData.id).subscribe(
+            this.countriesService.deleteCountry(row.metaData.id)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Country Deleted Successfully', 'Close', {
                         duration: 3000,
@@ -131,5 +143,10 @@ export class CountriesComponent {
             )
           }
         });
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 }

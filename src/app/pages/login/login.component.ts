@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -14,6 +15,7 @@ export class LoginComponent {
     user: User = new User();
     showError: boolean = false;
     errorMsg: string = "Please fill required fields";
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private loginService: LoginService,
       private _snackBar: MatSnackBar,
@@ -28,7 +30,9 @@ export class LoginComponent {
     login() {
       this.showError = false;
       if(this.user.username && this.user.username.trim()!='' && this.user.password && this.user.password.trim()!='') {
-        this.loginService.login(this.user).subscribe(
+        this.loginService.login(this.user)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
           (success) => {
             localStorage.setItem('isLoggedIn', 'true');
             this._route.navigateByUrl('/seasons');
@@ -43,6 +47,11 @@ export class LoginComponent {
       } else {
         this.showError = true;
       }
+    }
+
+    ngOnDestroy() {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
     }
 
 }

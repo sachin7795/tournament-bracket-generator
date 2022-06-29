@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AddSeasonComponent } from 'src/app/components/add-season/add-season.component';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Season } from 'src/app/models/season.model';
@@ -17,6 +18,7 @@ export class SeasonsComponent {
     seasons: Season[] = [];
     data: any[] = [];
     headers: string[] = [];
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private seasonsService: SeasonsService,
         private _route: Router,
@@ -31,7 +33,9 @@ export class SeasonsComponent {
     getSeasons() {
         this.seasons = [];
         this.data = [];
-        this.seasonsService.getSeasons().subscribe(
+        this.seasonsService.getSeasons()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
             (res) => {
                 this.seasons = <Season[]>res;
                 this.seasons.forEach(c=>{
@@ -63,10 +67,14 @@ export class SeasonsComponent {
             width: '400px',
             disableClose: true
           });
-        dialogRef1.afterClosed().subscribe((data:any) => {
+        dialogRef1.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.yes) {
-              this.seasonsService.deleteSeason(row.metaData.id).subscribe(
+              this.seasonsService.deleteSeason(row.metaData.id)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe(
                   (success) => {
                       this.getSeasons();
                     this._snackBar.open('Season deleted successfully', 'Close', {
@@ -90,14 +98,18 @@ export class SeasonsComponent {
             width: '400px',
             disableClose: true
           });
-        dialogRef.afterClosed().subscribe(season => {
+        dialogRef.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(season => {
          let s = JSON.parse(season)
          !s.close && this.addSeason(s);
         });
     }
 
     addSeason(season: Season) {
-        this.seasonsService.addSeason(season).subscribe(
+        this.seasonsService.addSeason(season)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
             (res) => {
                 this._route.navigateByUrl('/matches-dashboard/'+(<any>res).id);
             },
@@ -108,6 +120,11 @@ export class SeasonsComponent {
                 });
             }
         )
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 
 }

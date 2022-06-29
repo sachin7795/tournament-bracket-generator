@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
 import { Player } from 'src/app/models/player.model';
 import { CountriesService } from 'src/app/services/countries.service';
@@ -18,12 +19,15 @@ export class AddEditPlayerComponent {
     teams: Country[] = [];
     showError: boolean = false;
     errorMsg: string = '';
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private countriesService: CountriesService,
       private _snackBar: MatSnackBar) {}
 
     ngOnInit() {
-      this.countriesService.getCountries().subscribe(
+      this.countriesService.getCountries()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         (res) => {
           this.teams = <Country[]>res;
         },
@@ -52,6 +56,11 @@ export class AddEditPlayerComponent {
         this.showError = true;
         this.errorMsg = "Please fill required fields";
       }
+    }
+
+    ngOnDestroy() {
+      this.destroy$.next(true);
+      this.destroy$.unsubscribe();
     }
 
 }

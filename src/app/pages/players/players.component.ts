@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject, takeUntil } from 'rxjs';
 import { ConfirmAlertModalComponent } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.component';
 import { Player } from 'src/app/models/player.model';
 import { PlayersService } from 'src/app/services/players.service';
@@ -20,6 +21,7 @@ export class PlayersComponent {
     players: Player[] = [];
     data: any[] = [];
     headers: string[] = [];
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private playersService: PlayersService,
         private dialog: MatDialog,
@@ -33,7 +35,9 @@ export class PlayersComponent {
     getPlayers() {
         this.players = [];
         this.data = [];
-        this.playersService.getPlayers().subscribe(
+        this.playersService.getPlayers()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
             (res) => {
                 this.players = <Player[]>res;
                 this.players.forEach(c=>{
@@ -61,7 +65,9 @@ export class PlayersComponent {
 
     addOrUpdatePlayer(player: Player) {
         if(player.id){
-            this.playersService.updatePlayer(player).subscribe(
+            this.playersService.updatePlayer(player)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Player Updated Successfully', 'Close', {
                         duration: 3000,
@@ -77,7 +83,9 @@ export class PlayersComponent {
             )
         } else {
             player.id = UtilityFunctions.generateUuid();
-            this.playersService.addPlayer(player).subscribe(
+            this.playersService.addPlayer(player)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Player Added Successfully', 'Close', {
                         duration: 3000,
@@ -112,10 +120,14 @@ export class PlayersComponent {
             width: '400px',
             disableClose: true
           });
-        dialogRef1.afterClosed().subscribe((data:any) => {
+        dialogRef1.afterClosed()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data:any) => {
           data = JSON.parse(data);
           if(data.yes) {
-            this.playersService.deletePlayer(row.metaData.id).subscribe(
+            this.playersService.deletePlayer(row.metaData.id)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(
                 (success) => {
                     this._snackBar.open('Player Deleted Successfully', 'Close', {
                         duration: 3000,
@@ -131,6 +143,11 @@ export class PlayersComponent {
             )
           }
         });
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 
 }
