@@ -1,0 +1,32 @@
+.login-container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2f2727;
+    .form-body{
+        background: white;
+        border-radius: 10px;
+        padding: 50px;
+        .header{
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .footer{
+                width: 100%;
+                button{
+                    width: 100%;
+                }
+            }
+            .error-msg{
+                color: red;
+            }
+        }
+    }
+}

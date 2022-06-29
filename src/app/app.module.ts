@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarModule } from './components/navbar/navbar.module';
 import { MatchDetailsModule } from './components/match-details/match-details.module';
 import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashboard.module';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashbo
     MatchesDashboardModule,
     NavbarModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

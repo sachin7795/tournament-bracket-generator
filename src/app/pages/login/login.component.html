@@ -1,0 +1,19 @@
+<div class="login-container">
+    <div class="form-body">
+        <div class="header">Login</div>
+        <form (ngSubmit)="login()">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput required type="text" [(ngModel)]="user.username" name="userName" type="userName" placeholder="Enter Username...">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput required type="password" [(ngModel)]="user.password" name="password" type="password">
+            </mat-form-field>
+            <div class="footer">
+                <button mat-raised-button color="primary" type="submit">Login</button>
+                <div class="error-msg" *ngIf="showError">{{errorMsg}}</div>
+            </div>
+        </form>
+    </div>
+</div>

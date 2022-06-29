@@ -18,8 +18,7 @@ export class MatchesDashboardComponent {
   
     tournamentData: Tournament = new Tournament();
 
-    constructor(private _route: Router, 
-                private mdService: MatchesDashboardService,
+    constructor(private mdService: MatchesDashboardService,
                 private activatedRoute: ActivatedRoute,
                 private dialog: MatDialog,
                 private _snackBar: MatSnackBar) {}
@@ -86,7 +85,6 @@ export class MatchesDashboardComponent {
           }
         });
       }
-      // this._route.navigate(['match-details']);
     }
 
     saveSeasonDetails() {
