@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { CountriesRoutingModule } from './countries-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { ConfirmAlertModalModule } from 'src/app/components/confirm-alert-modal/confirm-alert-modal.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -29,7 +28,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     ListModule,
     CountriesRoutingModule,
-    HttpClientModule,
     ConfirmAlertModalModule,
     MatDialogModule,
     MatSnackBarModule

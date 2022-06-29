@@ -45,7 +45,7 @@ export class UpdateMatchCardComponent {
 
     validateForm() {
         this.errorMsg = '';
-        if(!this.matchDetails.date || 
+        if(!this.matchDetails.date || (this.matchDetails.date && ((new Date(this.matchDetails.date)+'')=='Invalid Date')) ||
             (!this.matchDetails.teamOne.score && this.matchDetails.teamOne.score!=0) ||
             (!this.matchDetails.teamOne.stats.fouls && this.matchDetails.teamOne.stats.fouls!=0) ||
             (!this.matchDetails.teamOne.stats.passAccuracy && this.matchDetails.teamOne.stats.passAccuracy!=0) ||
@@ -65,10 +65,17 @@ export class UpdateMatchCardComponent {
                 this.errorMsg = 'Please fill require fields';
                 return false;
             } else {
-                if(((this.matchDetails.teamOne.score===this.matchDetails.teamTwo.score) &&
-                (!this.matchDetails.teamOne.penaltyScore && !this.matchDetails.teamTwo.penaltyScore))) {
-                    this.errorMsg = 'Penalty can not be equal';
-                    return false;
+                if(((this.matchDetails.teamOne.score===this.matchDetails.teamTwo.score))) {
+                    if((this.matchDetails.teamOne.penaltyScore==undefined || this.matchDetails.teamOne.penaltyScore==null) ||
+                    (this.matchDetails.teamTwo.penaltyScore==undefined || this.matchDetails.teamTwo.penaltyScore==null)) {
+                        this.errorMsg = 'Penalty can not be empty';
+                        return false;
+                    } else if(this.matchDetails.teamOne.penaltyScore == this.matchDetails.teamTwo.penaltyScore) {
+                        this.errorMsg = 'Penalty can not be equal';
+                        return false;
+                    } else {
+                        return true;
+                    }
                 } else {
                     return true;
                 }

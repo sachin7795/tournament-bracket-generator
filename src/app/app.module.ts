@@ -7,6 +7,8 @@ import { NavbarModule } from './components/navbar/navbar.module';
 import { MatchDetailsModule } from './components/match-details/match-details.module';
 import { MatchesDashboardModule } from './pages/matches-dashboard/matches-dashboard.module';
 import { AuthGuard } from './guards/auth.guard';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './interceptor/interceptor';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,11 @@ import { AuthGuard } from './guards/auth.guard';
     AppRoutingModule,
     MatchDetailsModule,
     MatchesDashboardModule,
-    NavbarModule
+    NavbarModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

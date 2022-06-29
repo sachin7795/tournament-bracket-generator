@@ -7,7 +7,6 @@ import { MatchCardTeamRowComponent } from 'src/app/components/match-card-team-ro
 import { CustomPipesModule } from 'src/app/pipes/custom-pipes.module';
 import { CommonModule } from '@angular/common';
 import { MatchesDashboardService } from 'src/app/services/matches-dashboard.service';
-import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { UpdateMatchCardComponent } from 'src/app/components/update-match-card/update-match-card.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -32,7 +31,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatchesDashboardRoutingModule,
     MatIconModule,
     CustomPipesModule,
-    HttpClientModule,
     MatButtonModule,
     MatDialogModule,
     FormsModule,
