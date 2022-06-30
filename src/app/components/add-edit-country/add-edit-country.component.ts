@@ -19,13 +19,13 @@ export class AddEditCountryComponent {
     addCountry() {
       this.errorMsg = '';
       this.showError = false;
-      if(this.country.name && this.country.name.trim()!='' && this.country.rank && this.country.rank!=0) {
+      if(this.country.name && this.country.name.trim()!='' && this.country.rank && this.country.rank>1) {
         this.updatedCountry.emit(this.country);
         this.country = new Country();
       } else {
         this.showError = true;
-        if(this.country.rank==0) {
-          this.errorMsg = "Rank cannot be 0";
+        if(this.country.rank<1) {
+          this.errorMsg = "Rank should be greater than 1";
         } else {
           this.errorMsg = "Please fill required fields";
         }
