@@ -19,7 +19,7 @@ export class AddEditCountryComponent {
     addCountry() {
       this.errorMsg = '';
       this.showError = false;
-      if(this.country.name && this.country.name.trim()!='' && this.country.rank && this.country.rank>1) {
+      if(this.country.name && this.country.name.trim()!='' && this.country.rank && this.country.rank>0) {
         this.updatedCountry.emit(this.country);
         this.country = new Country();
       } else {
