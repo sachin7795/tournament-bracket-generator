@@ -40,7 +40,7 @@ export class CountriesComponent {
         .subscribe(
             (res) => {
                 this.countries = <Country[]>res;
-                this.countries.forEach(c=>{
+                this.countries.sort((a,b)=>a.rank-b.rank).forEach(c=>{
                    let obj = {metaData: c, tableData:[c.name,c.rank]}
                    this.data.push(obj);
                 });
