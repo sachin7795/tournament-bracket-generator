@@ -67,11 +67,11 @@ export class UpdateMatchCardComponent {
             } else {
                 if(this.matchDetails.teamOne.score<0 || this.matchDetails.teamOne.stats.fouls<0 ||
                     this.matchDetails.teamOne.stats.passAccuracy<0 || this.matchDetails.teamOne.stats.passes<0 ||
-                    this.matchDetails.teamOne.stats.possession<0 || this.matchDetails.teamOne.stats.shots ||
+                    this.matchDetails.teamOne.stats.possession<0 || this.matchDetails.teamOne.stats.shots<0 ||
                     this.matchDetails.teamOne.stats.shotsOnTarget<0 || this.matchDetails.teamOne.stats.yellowCards<0 ||
                     this.matchDetails.teamTwo.score<0 || this.matchDetails.teamTwo.stats.fouls<0 ||
                     this.matchDetails.teamTwo.stats.passAccuracy<0 || this.matchDetails.teamTwo.stats.passes<0 ||
-                    this.matchDetails.teamTwo.stats.possession<0 || this.matchDetails.teamTwo.stats.shots ||
+                    this.matchDetails.teamTwo.stats.possession<0 || this.matchDetails.teamTwo.stats.shots<0 ||
                     this.matchDetails.teamTwo.stats.shotsOnTarget<0 || this.matchDetails.teamTwo.stats.yellowCards<0) {
                     this.errorMsg = "values can't be negative";
                     return false;
